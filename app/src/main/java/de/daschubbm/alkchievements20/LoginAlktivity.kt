@@ -1,4 +1,4 @@
-package de.daschubbm.alkchivements20
+package de.daschubbm.alkchievements20
 
 import android.content.Intent
 import android.os.Bundle

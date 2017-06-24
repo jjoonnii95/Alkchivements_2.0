@@ -1,0 +1,64 @@
+{
+  "alkchievements": [
+    {
+      "id": "armerSchlucker",
+      "name": "Armer Schlucker",
+      "desc": "Erhalte eine Rechnung von über %5,10,20%€!"
+    },
+    {
+      "id": "bierkenner",
+      "name": "Bierkenner",
+      "desc": "Trinke %2,4,6% Bier an einem Abend!"
+    },
+    {
+      "id": "stammgast",
+      "name": "Stammgast",
+      "desc": "Beschließe %3,5,7% Tage in Folge eine Transaktion im Schubbm!"
+    },
+    {
+      "id": "kegelsportverein",
+      "name": "Kegelsportverein",
+      "desc": "Trinke 5 Radler an einem Abend!"
+    },
+    {
+      "id": "nullKommaNull",
+      "name": "0,0",
+      "desc": "Trinke 5 antialkoholische Getränke an einem Abend!"
+    },
+    {
+      "id": "blauWieDasMeer",
+      "name": "Blau wie das Meer",
+      "desc": "Trinke 5 Shots an einem Abend!"
+    },
+    {
+      "id": "kastenLeer",
+      "name": "Kasten leer",
+      "desc": "Trinke insgesamt 20 Bier"
+    },
+    {
+      "id": "schuldnerNummerEins",
+      "name": "Schuldner Nr. 1",
+      "desc": "Erreiche die höchste Summe auf der gesamten Rechnung!"
+    },
+    {
+      "id": "hobbylos",
+      "name": "Hobbylos",
+      "desc": "Drücke 100 mal auf einen Kasten!"
+    },
+    {
+      "id": "sparfuchs",
+      "name": "Sparfuchs",
+      "desc": "Bleibe bei 10 Getränken bei unter 7 €!"
+    },
+    {
+      "id": "wurstfinger",
+      "name": "Wurschtfinger",
+      "desc": "Storniere 5 Getränkbestellungen!"
+    },
+    {
+      "id": "sprengmeister",
+      "name": "Sprengmeister",
+      "desc": "Sprenge ein rotes Fass!"
+    }
+  ]
+}

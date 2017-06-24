@@ -59,6 +59,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "807203489559-p6eljkoiu2mq7l5692jrmrskoj1g2nhj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.daschubbm.alkchivements20",
+            "certificate_hash": "4ecc7168e2b8d510284722f5d0951520cc8f9b0b"
+          }
+        },
+        {
           "client_id": "807203489559-qdoudgoj5qcr1hq8rdo9th1i8l4fqido.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

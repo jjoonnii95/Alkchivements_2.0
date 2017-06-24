@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.daschubbm.alkchivements20.LoginAlktivity">
+    tools:context="de.daschubbm.alkchievements20.LoginAlktivity">
 
     <TextView
         android:id="@+id/textView"

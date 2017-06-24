@@ -1,7 +1,9 @@
-package de.daschubbm.alkchivements20.util
+package de.daschubbm.alkchievements20.util
 
-fun Short.asPrice(): String {
-    val string = this.toString()
+import de.daschubbm.alkchievements20.dataManagement.Drink
+
+fun Drink.formattedPrice(): String {
+    val string = this.price.toString()
 
     if (string.length == 1) return "0,0" + string + "€"
     else if (string.length == 2) return "0," + string + "€"

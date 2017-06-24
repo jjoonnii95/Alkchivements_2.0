@@ -1,4 +1,4 @@
-package de.daschubbm.alkchivements20
+package de.daschubbm.alkchievements20
 
 import org.junit.Test
 
