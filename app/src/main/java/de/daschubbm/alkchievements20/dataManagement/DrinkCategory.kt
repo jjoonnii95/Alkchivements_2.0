@@ -5,9 +5,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 
-class DrinkCategory(dbRef: DatabaseReference, snapshot: DataSnapshot) {
+class DrinkCategory(val dbRef: DatabaseReference, snapshot: DataSnapshot) {
     var name: String = snapshot.key
-    val drinks: MutableList<Drink> = mutableListOf()
+    val drinks: MutableSet<Drink> = mutableSetOf()
 
     init {
         /*********************************************************

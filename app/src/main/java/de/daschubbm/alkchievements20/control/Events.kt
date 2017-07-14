@@ -1,7 +1,7 @@
 package de.daschubbm.alkchievements20.control
 
 object Events {
-    val triggers: MutableMap<String, MutableSet<(params: List<Any>) -> Unit>> = mutableMapOf()
+    private val triggers: MutableMap<String, MutableSet<(params: List<Any>) -> Unit>> = mutableMapOf()
 
     fun trigger(event: String) {
         triggers[event]?.forEach { it.invoke(emptyList()) }

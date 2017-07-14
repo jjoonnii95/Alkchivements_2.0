@@ -2,7 +2,7 @@ package de.daschubbm.alkchievements20.dataManagement
 
 import com.google.firebase.database.*
 
-class Person(dbRef: DatabaseReference, snapshot: DataSnapshot) {
+class Person(val dbRef: DatabaseReference, snapshot: DataSnapshot) {
     val name: String = dbRef.key
     val appVersion = snapshot.child("appVersion").value as String
     val drinks: MutableMap<Drink, Int> = mutableMapOf()

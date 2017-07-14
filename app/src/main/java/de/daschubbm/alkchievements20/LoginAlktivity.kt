@@ -13,6 +13,11 @@ class LoginAlktivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.alktivity_login)
+
+        if (LocalData.loadS("name") != "") {
+            val hansl = Intent(this, MainAlktivity::class.java)
+            startActivity(hansl)
+        }
     }
 
     fun login(view: View) {

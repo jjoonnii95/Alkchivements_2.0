@@ -5,7 +5,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 
-class Drink(dbRef: DatabaseReference, snapshot: DataSnapshot) {
+class Drink(val dbRef: DatabaseReference, snapshot: DataSnapshot) {
     val name: String = dbRef.key
     var price: Short = (snapshot.child("price").value as Long).toShort()
     var stock: Int = (snapshot.child("stock").value as Long).toInt()

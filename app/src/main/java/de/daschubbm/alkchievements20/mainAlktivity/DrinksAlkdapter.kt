@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import de.daschubbm.alkchievements20.R
 import de.daschubbm.alkchievements20.dataManagement.Drink
 import de.daschubbm.alkchievements20.dataManagement.DrinkCategory
+import de.daschubbm.alkchievements20.dataManagement.FirebaseManager
 import de.daschubbm.alkchievements20.dataManagement.Person
 import de.daschubbm.alkchievements20.util.formattedPrice
 import kotlinx.android.synthetic.main.drink_category_item.view.*
@@ -27,6 +28,28 @@ class DrinksAlkdapter(categories: Collection<DrinkCategory>, val user: Person) :
     val DRINK_ITEM = 2
 
     val items = mutableListOf<Any>()
+
+    var blockActions = false
+
+    val onClick: (View) -> Unit = { v ->
+        if (!blockActions) {
+            val tag = v.name.text
+
+            blockActions = true
+            FirebaseManager.consumeDrink(user, tag as String, { blockActions = false })
+        }
+    }
+
+    val onLongClick: (View) -> Boolean = { v ->
+        if (!blockActions) {
+            val tag = v.name.text
+
+            blockActions = true
+            FirebaseManager.returnDrink(user, tag as String, { blockActions = false })
+        }
+
+        true //Long click has been accepted
+    }
 
     init {
         items.add(user)
@@ -56,15 +79,21 @@ class DrinksAlkdapter(categories: Collection<DrinkCategory>, val user: Person) :
         return items.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder =
-            when (viewType) {
-                0 -> HeadHolder(LayoutInflater.from(parent!!.context)
-                        .inflate(R.layout.drink_header_item, parent, false))
-                1 -> CategoryHolder(LayoutInflater.from(parent!!.context)
-                        .inflate(R.layout.drink_category_item, parent, false))
-                else -> DrinkHolder(LayoutInflater.from(parent!!.context)
-                        .inflate(R.layout.drink_item, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+        when (viewType) {
+            0 -> return HeadHolder(LayoutInflater.from(parent!!.context)
+                    .inflate(R.layout.drink_header_item, parent, false))
+            1 -> return CategoryHolder(LayoutInflater.from(parent!!.context)
+                    .inflate(R.layout.drink_category_item, parent, false))
+            else -> {
+                val view = LayoutInflater.from(parent!!.context).inflate(R.layout.drink_item, parent, false)
+                view.setOnClickListener(onClick)
+                view.setOnLongClickListener(onLongClick)
+
+                return DrinkHolder(view)
             }
+        }
+    }
 
     override fun getItemViewType(position: Int): Int {
         if (items[position] is Drink) return DRINK_ITEM
@@ -85,7 +114,7 @@ class DrinkHolder(view: View) : RecyclerView.ViewHolder(view) {
         preview.setImageResource(R.drawable.radler)
         name.text = drink.name
         price.text = PRICE_PREFIX + drink.formattedPrice()
-        drank.text = DRANK_PREFIX + user.drinks[drink]
+        drank.text = DRANK_PREFIX + user.drinks.getOrDefault(drink, 0)
         inventory.text = INVENTORY_PREFIX + drink.stock
     }
 }
@@ -98,7 +127,7 @@ class CategoryHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 }
 
-class HeadHolder(val view: View) : RecyclerView.ViewHolder(view) {
+class HeadHolder(view: View) : RecyclerView.ViewHolder(view) {
     val username = view.username
     val picture = view.picture
     val mostExpensive = view.mostExpensive
