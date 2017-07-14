@@ -21,7 +21,7 @@ const val MOST_EXPENSIVE_PREFIX = "\ud83d\udcb8 "
 const val LAST_PREFIX = "\ud83d\udd53 "
 const val TOP_PREFIX = "\ud83d\udd1d "
 
-class DrinksAlkdapter(categories: List<DrinkCategory>, val user: Person) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DrinksAlkdapter(categories: Collection<DrinkCategory>, val user: Person) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val HEADER_ITEM = 0
     val CATEGORY_ITEM = 1
     val DRINK_ITEM = 2
@@ -82,7 +82,7 @@ class DrinkHolder(view: View) : RecyclerView.ViewHolder(view) {
     val inventory = view.inventory
 
     fun bind(drink: Drink, user: Person) {
-        preview.setImageBitmap(drink.iconImgRes)
+        preview.setImageResource(R.drawable.radler)
         name.text = drink.name
         price.text = PRICE_PREFIX + drink.formattedPrice()
         drank.text = DRANK_PREFIX + user.drinks[drink]
@@ -108,7 +108,7 @@ class HeadHolder(val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(user: Person) {
         username.text = user.name
 
-        picture.setImageResource(user.iconImgRes)
+        picture.setImageResource(R.drawable.wasser)
         mostExpensive.text = MOST_EXPENSIVE_PREFIX + "Goaßmaß"
         last.text = LAST_PREFIX + "Schnops"
         top.text = TOP_PREFIX + "Radla"

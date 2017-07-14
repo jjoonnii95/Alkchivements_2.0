@@ -5,9 +5,6 @@ import de.daschubbm.alkchievements20.App
 import de.daschubbm.alkchievements20.R
 import de.daschubbm.alkchievements20.util.readJson
 
-/**
- * Created by Maxi on 22.06.2017.
- */
 object AlkchievementsManager {
     val allAlkchievements = mutableMapOf<String, Alkchievement>()
 
@@ -23,7 +20,7 @@ object AlkchievementsManager {
                 val name = alkchievement.getString("name")
                 val desc = alkchievement.getString("desc")
 
-                val alkchievementObj = Alkchievement(id, name, id, desc)
+                val alkchievementObj = Alkchievement(id, name, desc)
                 allAlkchievements.put(id, alkchievementObj)
             }
         } catch (e: NullPointerException) {

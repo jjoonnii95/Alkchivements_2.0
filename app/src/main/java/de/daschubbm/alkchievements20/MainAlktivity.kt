@@ -3,6 +3,9 @@ package de.daschubbm.alkchievements20
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import de.daschubbm.alkchievements20.dataManagement.FirebaseManager
+import de.daschubbm.alkchievements20.dataManagement.LocalData
 import de.daschubbm.alkchievements20.mainAlktivity.DrinksAlkdapter
 import kotlinx.android.synthetic.main.alktivity_main.*
 
@@ -12,19 +15,14 @@ class MainAlktivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.alktivity_main)
 
-        val user = ItemUser(R.drawable.background, "Maxl")
-        val categories = mutableListOf<ItemCategory>()
+        FirebaseManager.getPerson(LocalData.loadS("name")) { p ->
+            val user = p ?: throw IllegalStateException("User does not exist!!")
 
-        val drinks = mutableListOf<ItemDrink>()
+            drinksView.layoutManager = LinearLayoutManager(this)
+            drinksView.adapter = DrinksAlkdapter(FirebaseManager.allCategories.values, user)
 
-        drinks.add(ItemDrink("Almdudler", 80,R.drawable.almdudler))
-        drinks.add(ItemDrink("Radler", 180,R.drawable.radler))
-        drinks.add(ItemDrink("Wasser", 30,R.drawable.wasser))
-
-        categories.add(ItemCategory("Alkoholfrei", drinks))
-        categories.add(ItemCategory("Wenig Alkohol", drinks))
-
-        drinksView.layoutManager = LinearLayoutManager(this)
-        drinksView.adapter = DrinksAlkdapter(categories, user)
+            drinksView.visibility = View.VISIBLE
+            loadSpinner.visibility = View.GONE
+        }
     }
 }
