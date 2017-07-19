@@ -1,7 +1,7 @@
 {
   "alkchievements": [
     {
-      "id": "armerSchlucker",
+      "id": "armer_schlucker",
       "name": "Armer Schlucker",
       "desc": "Erhalte eine Rechnung von über %5,10,20%€!"
     },
@@ -18,32 +18,32 @@
     {
       "id": "kegelsportverein",
       "name": "Kegelsportverein",
-      "desc": "Trinke 5 Radler an einem Abend!"
+      "desc": "Trinke %5% Radler an einem Abend!"
     },
     {
-      "id": "nullKommaNull",
+      "id": "null_komma_null",
       "name": "0,0",
-      "desc": "Trinke 5 antialkoholische Getränke an einem Abend!"
+      "desc": "Trinke %5% antialkoholische Getränke an einem Abend!"
     },
     {
-      "id": "blauWieDasMeer",
+      "id": "blau_wie_das_meer",
       "name": "Blau wie das Meer",
-      "desc": "Trinke 5 Shots an einem Abend!"
+      "desc": "Trinke %5% Shots an einem Abend!"
     },
     {
-      "id": "kastenLeer",
+      "id": "kasten_leer",
       "name": "Kasten leer",
-      "desc": "Trinke insgesamt 20 Bier"
+      "desc": "Trinke insgesamt %20% Bier"
     },
     {
-      "id": "schuldnerNummerEins",
+      "id": "schuldner_nummer_eins",
       "name": "Schuldner Nr. 1",
       "desc": "Erreiche die höchste Summe auf der gesamten Rechnung!"
     },
     {
       "id": "hobbylos",
       "name": "Hobbylos",
-      "desc": "Drücke 100 mal auf einen Kasten!"
+      "desc": "Drücke %100% mal auf einen Kasten!"
     },
     {
       "id": "sparfuchs",
@@ -53,7 +53,7 @@
     {
       "id": "wurstfinger",
       "name": "Wurschtfinger",
-      "desc": "Storniere 5 Getränkbestellungen!"
+      "desc": "Storniere %5% Getränkbestellungen!"
     },
     {
       "id": "sprengmeister",

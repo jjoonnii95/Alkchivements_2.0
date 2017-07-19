@@ -1,11 +1,14 @@
 package de.daschubbm.alkchievements20
 
+import android.content.ComponentCallbacks2
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import de.daschubbm.alkchievements20.control.Events
+import de.daschubbm.alkchievements20.control.Notifications
 import de.daschubbm.alkchievements20.dataManagement.FirebaseManager
 import de.daschubbm.alkchievements20.dataManagement.LocalData
 import de.daschubbm.alkchievements20.dataManagement.Person
@@ -34,5 +37,6 @@ class MainAlktivity : AppCompatActivity() {
         }
 
         FirebaseManager.toString() // Invoke object initializer
+        Notifications.toString()
     }
 }

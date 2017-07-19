@@ -97,6 +97,9 @@ object FirebaseManager {
         updatedValues["drinks/${drinkObj.name}/stock"] = drinkObj.stock - diff
 
         db.reference.updateChildren(updatedValues as Map<String, Any>?)
+
+        if (!consume) Events.trigger("Drink-Returned", listOf(user))
+
         callback.invoke()
     }
 }

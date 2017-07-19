@@ -1,6 +1,7 @@
 package de.daschubbm.alkchievements20.dataManagement
 
 import com.google.firebase.database.*
+import de.daschubbm.alkchievements20.control.Events
 
 class Person(val dbRef: DatabaseReference, snapshot: DataSnapshot) {
     val name: String = dbRef.key
@@ -40,15 +41,28 @@ class Person(val dbRef: DatabaseReference, snapshot: DataSnapshot) {
             override fun onChildMoved(child: DataSnapshot?, previousSibling: String?) = Unit
 
             override fun onChildChanged(child: DataSnapshot?, previousSibling: String?) {
-                FirebaseManager.allDrinks[child?.key]?.let { drinks.put(it, (child?.value as Long).toInt()) }
+                FirebaseManager.allDrinks[child?.key]?.let {
+                    val drank = (child?.value as Long).toInt()
+
+                    drinks.put(it, drank)
+                    Events.trigger("Person-Drink-Changed", listOf(child.key, drank))
+                }
             }
 
             override fun onChildAdded(child: DataSnapshot?, previousSibling: String?) {
-                FirebaseManager.allDrinks[child?.key]?.let { drinks.put(it, (child?.value as Long).toInt()) }
+                FirebaseManager.allDrinks[child?.key]?.let {
+                    val drank = (child?.value as Long).toInt()
+
+                    drinks.put(it, drank)
+                    Events.trigger("Person-Drink-Added", listOf(child.key, drank))
+                }
             }
 
             override fun onChildRemoved(child: DataSnapshot?) {
-                FirebaseManager.allDrinks[child?.key]?.let { drinks.remove(it) }
+                FirebaseManager.allDrinks[child?.key]?.let {
+                    drinks.remove(it)
+                    Events.trigger("Person-Drink-Removed", listOf(child!!.key))
+                }
             }
 
         })

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import de.daschubbm.alkchievements20.R
+import de.daschubbm.alkchievements20.control.Events
 import de.daschubbm.alkchievements20.dataManagement.Drink
 import de.daschubbm.alkchievements20.dataManagement.DrinkCategory
 import de.daschubbm.alkchievements20.dataManagement.FirebaseManager
@@ -28,6 +29,8 @@ class DrinksAlkdapter(categories: Collection<DrinkCategory>, val user: Person) :
     val DRINK_ITEM = 2
 
     val items = mutableListOf<Any>()
+
+    val drinkRefs = mutableMapOf<String, DrinkHolder>()
 
     var blockActions = false
 
@@ -59,10 +62,37 @@ class DrinksAlkdapter(categories: Collection<DrinkCategory>, val user: Person) :
                 items.add(drink)
             }
         }
+
+        Events.addHandler("Person-Drink-Changed") { args ->
+            val drinkName = args[0] as String
+            val drank = args[1] as Int
+
+            drinkRefs[drinkName]?.let {
+                if (it.name.text == drinkName) {
+                    it.drank.text = DRANK_PREFIX + drank
+                } else drinkRefs.remove(drinkName) //Holder is bound to other drink
+            }
+        }
+
+        Events.addHandler("Drink-Changed") { args ->
+            val drink = args[0] as Drink
+
+            drinkRefs[drink.name]?.let {
+                if (it.name.text == drink.name) {
+                    it.price.text = PRICE_PREFIX + drink.formattedPrice()
+                    it.inventory.text = INVENTORY_PREFIX + drink.stock
+                } else drinkRefs.remove(drink.name) //Holder is bound to other drink
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        if (holder is DrinkHolder) holder.bind(getDrink(position), user)
+        if (holder is DrinkHolder) {
+            val drink = getDrink(position)
+            holder.bind(drink, user)
+
+            drinkRefs.put(drink.name, holder)
+        }
         else if (holder is CategoryHolder) holder.bind(getCategory(position))
         else if (holder is HeadHolder) holder.bind(user)
     }
