@@ -1,8 +1,10 @@
 package de.daschubbm.alkchievements20.dataManagement
 
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import de.daschubbm.alkchievements20.control.Events
-import java.util.*
 
 object FirebaseManager {
     val db: FirebaseDatabase = FirebaseDatabase.getInstance()
@@ -77,41 +79,24 @@ object FirebaseManager {
     private fun interactWithDrink(user: Person, drink: String, callback: () -> Unit, consume: Boolean) {
         val drinkObj = allDrinks[drink] ?: return
 
-        val transactionEventID = "Transaction-${Math.abs(Random().nextInt())}-Completed"
+        val updatedValues = mutableMapOf<String, Int>()
 
-        Events.addHandler(transactionEventID) { ->
-            drinkObj.dbRef.runTransaction(object : Transaction.Handler {
-                override fun onComplete(err: DatabaseError?, committed: Boolean, snap: DataSnapshot?) {
-                    if (committed) {
-                        callback.invoke()
-                        Events.trigger("DrinkModified", listOf(drinkObj))
-                    }
-                }
+        val diff = if (consume) 1 else -1
+        val drunk = user.drinks[drinkObj] ?: 0
 
-                override fun doTransaction(data: MutableData?): Transaction.Result {
-                    val stockRef = data?.child("stock")
-                    val stock = (stockRef?.value ?: return Transaction.abort()) as Long
-
-                    stockRef.value = stock + (if (consume) -1 else 1)
-                    return Transaction.success(data)
-                }
-
-            })
+        if (drunk == 0 && !consume) { // Can't give back a drink when you have 0
+            callback.invoke()
+            return
+        }
+        if (drinkObj.stock == 0 && consume) { //Can't drink a drink if none are there
+            callback.invoke()
+            return
         }
 
-        user.dbRef.runTransaction(object : Transaction.Handler {
-            override fun onComplete(err: DatabaseError?, committed: Boolean, snap: DataSnapshot?) {
-                if (committed) Events.trigger(transactionEventID)
-            }
+        updatedValues["people/${user.name}/drinks/${drinkObj.name}"] = drunk + diff
+        updatedValues["drinks/${drinkObj.name}/stock"] = drinkObj.stock - diff
 
-            override fun doTransaction(data: MutableData?): Transaction.Result {
-                val counterRef = data?.child("drinks/$drink")
-                val drank = (counterRef?.value ?: 0) as Long
-
-                counterRef?.value = drank + (if (consume) 1 else -1)
-                return Transaction.success(data)
-            }
-
-        })
+        db.reference.updateChildren(updatedValues as Map<String, Any>?)
+        callback.invoke()
     }
 }
